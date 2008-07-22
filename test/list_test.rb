@@ -156,6 +156,13 @@ class ListTest < Test::Unit::TestCase
     assert_equal 5, new4.pos
   end
 
+  def test_respect_initial_position
+    assert_equal [1, 2, 3, 4], ListMixin.find(:all, :conditions => 'parent_id = 5', :order => 'pos').map(&:id)
+
+    new = ListMixin.create(:parent_id => 20, :pos => 2)
+    assert_equal 2, new.pos
+  end
+
   def test_delete_middle
     assert_equal [1, 2, 3, 4], ListMixin.find(:all, :conditions => 'parent_id = 5', :order => 'pos').map(&:id)
 
